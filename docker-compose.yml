@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  fireapi:
+    image: audeldiaz/fireapi:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./src:/app
+      - ./.key/credentials.json:/tmp/credentials.json
+    environment:
+      - PORT=8000
+      - GOOGLE_APPLICATION_CREDENTIALS=/tmp/credentials.json

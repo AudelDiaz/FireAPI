@@ -1,0 +1,10 @@
+Dockerfile*
+docker-compose*
+*.md
+*.pyc
+**.pyc
+*/*.pyc
+*/__pycache__/
+.idea/
+.code/
+.key/

@@ -8,3 +8,4 @@ docker-compose*
 .idea/
 .code/
 .key/
+.pytest_cache/

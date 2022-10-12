@@ -1,15 +1,22 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, Response, Depends, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from firebase_admin import auth
-from firebase_admin.auth import InvalidIdTokenError
 
 
-def get_uid(id_token):
+def get_user_token(res: Response, credential: HTTPAuthorizationCredentials = Depends(HTTPBearer(auto_error=False))):
+    if credential is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Bearer authentication is needed",
+            headers={'WWW-Authenticate': 'Bearer realm="auth_required"'},
+        )
     try:
-        decoded_token = auth.verify_id_token(id_token)
-        uid = decoded_token['uid']
-        return uid
-    except InvalidIdTokenError:
-        raise HTTPException(401)
-    except ValueError:
-        raise HTTPException(401)
-
+        decoded_token = auth.verify_id_token(credential.credentials)
+    except Exception as err:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"Invalid authentication from Firebase. {err}",
+            headers={'WWW-Authenticate': 'Bearer error="invalid_token"'},
+        )
+    res.headers['WWW-Authenticate'] = 'Bearer realm="auth_required"'
+    return decoded_token

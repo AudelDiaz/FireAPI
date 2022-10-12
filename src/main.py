@@ -1,31 +1,28 @@
-from fastapi import FastAPI, Header
+from fastapi import FastAPI, Depends
 
-from auth import get_uid
-from crud import add_document, find_document, change_document
-from models import User
+from auth import get_user_token
+from crud import add_document, get_document, change_document
+from models import Account
 
 app = FastAPI()
 
 
 @app.get("/")
-async def root(authorization: str = Header(None)):
-    if get_uid(authorization):
-        return {"message": f"Hello {get_uid(authorization)}"}
+async def root(jwt: str = Depends(get_user_token)):
+    return {"message": f"Hello {jwt['email']}"}
 
 
-@app.post("/api/v1/user")
-async def create_user(user: User, authorization: str = Header(None)):
-    if get_uid(authorization):
-        return add_document(user, 'users')
+@app.post("/api/v1/account")
+async def create_account(account: Account, jwt: str = Depends(get_user_token)):
+    account.email = jwt['email']
+    return add_document(jwt['uid'], account, 'accounts')
 
 
-@app.get("/api/v1/user/{id}")
-async def get_user(id: str, authorization: str = Header(None)):
-    if get_uid(authorization):
-        return find_document(id, 'users')
+@app.get("/api/v1/account")
+async def get_account(jwt: str = Depends(get_user_token)):
+    return get_document(jwt['uid'], 'accounts')
 
 
-@app.patch("/api/v1/user/{id}")
-async def update_user(id: str, values: dict, authorization: str = Header(None)):
-    if get_uid(authorization):
-        return change_document(id, 'users', values)
+@app.patch("/api/v1/account")
+async def update_account(values: dict, jwt: str = Depends(get_user_token)):
+    return change_document(jwt['uid'], 'accounts', values)

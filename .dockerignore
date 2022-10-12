@@ -1,10 +1,12 @@
 Dockerfile*
 docker-compose*
+Makefile
 *.md
 *.pyc
 **.pyc
 */*.pyc
 */__pycache__/
+.git/
 .idea/
 .code/
 .key/

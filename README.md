@@ -5,7 +5,7 @@ All this was using the free tier from Firebase and Google Cloud Platform.
 
 ## Getting started
 
-As I mentioned before I'm using services from Firebase and GCP, so You should start with a google account and activate
+As I mentioned before I'm using services from Firebase and GCP, so You should start with a Google account and activate
 those services. I suggest beginning with the GCP project and then creating a Firebase project importing the same GCP
 project. All this is in order to use the same permissions and billing account (Yeah you need a billing account with a
 valid credit card, but remember it's just for enabling services because we will be using "the free tier").

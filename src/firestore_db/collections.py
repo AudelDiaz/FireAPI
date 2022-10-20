@@ -1,2 +1,2 @@
 ACCOUNTS_COLLECTION = 'accounts'
-ADDRESSES_COLLECTION = "accounts/{uid}/addresses"
+ADDRESSES_COLLECTION = "accounts/$uid/addresses"

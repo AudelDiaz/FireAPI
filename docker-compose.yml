@@ -7,9 +7,12 @@ services:
       dockerfile: ./Dockerfile
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
     ports:
-      - 8000:8000
+      - "8000:8000"
     volumes:
       - ./src:/app
       - ./.key/credentials.json:/tmp/credentials.json
+      - ./.key/firebase_config.json:/tmp/firebase_config.json
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=/tmp/credentials.json
+      - FIREBASE_CONFIG=/tmp/firebase_config.json
+    env_file: .env

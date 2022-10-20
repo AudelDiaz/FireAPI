@@ -9,5 +9,6 @@ Makefile
 .git/
 .idea/
 .code/
+.vscode/
 .key/
 .pytest_cache/

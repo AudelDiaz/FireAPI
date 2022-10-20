@@ -4,5 +4,9 @@
 */__pycache__/
 .idea/
 .code/
+.vscode/
 .key/
 .pytest_cache/
+.env*
+src/.coverage*
+src/htmlcov/

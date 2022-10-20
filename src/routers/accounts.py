@@ -14,16 +14,16 @@ router = APIRouter(
 
 
 @router.post("")
-async def create_account(account: Account, jwt: str = Depends(get_user_token)):
+async def create_account(account: Account, jwt: dict = Depends(get_user_token)):
     account.email = jwt['email']
     return add_document(jwt['uid'], account, ACCOUNTS_COLLECTION)
 
 
 @router.get("")
-async def get_account(jwt: str = Depends(get_user_token)):
+async def get_account(jwt: dict = Depends(get_user_token)):
     return get_document(jwt['uid'], ACCOUNTS_COLLECTION)
 
 
 @router.patch("")
-async def update_account(values: dict, jwt: str = Depends(get_user_token)):
+async def update_account(values: dict, jwt: dict = Depends(get_user_token)):
     return change_document(jwt['uid'], ACCOUNTS_COLLECTION, values)

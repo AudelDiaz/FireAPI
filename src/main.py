@@ -9,5 +9,5 @@ app.include_router(addresses.router)
 
 
 @app.get("/")
-async def root(jwt: str = Depends(get_user_token)):
+async def root(jwt: dict = Depends(get_user_token)):
     return {"message": f"Hello {jwt['email']}"}

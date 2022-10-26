@@ -4,4 +4,4 @@ uvicorn[standard]
 pydantic
 gunicorn
 firebase-admin
-pyrebase
+pyrebase4

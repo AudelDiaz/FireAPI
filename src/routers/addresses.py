@@ -31,7 +31,7 @@ async def get_addresses(jwt: dict = Depends(get_user_token)):
 
 
 @router.delete("/{id}")
-async def get_address(id: str, jwt: dict = Depends(get_user_token)):
+async def delete_address(id: str, jwt: dict = Depends(get_user_token)):
     return remove_document(id, Template(ADDRESSES_COLLECTION).safe_substitute(uid=jwt['uid']))
 
 

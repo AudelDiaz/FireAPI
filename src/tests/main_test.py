@@ -19,3 +19,9 @@ def test_root():
     response = client.get("/", headers=headers)
     assert response.status_code == 200
     assert response.json() == {"message": f"Hello {os.getenv('TEST_EMAIL')}"}
+
+
+def test_root_invalid_token():
+    headers = {"Authorization": "Bearer abcdf"}
+    response = client.get("/", headers=headers)
+    assert response.status_code == 401

@@ -14,5 +14,5 @@ def get_token():
         jwt = user['idToken']
         print(jwt)
         return jwt
-    except Exception as e:
+    except Exception as e:  # pragma: no cover
         print(e)
